@@ -23,7 +23,7 @@ jobs:
         run: pip install pytest requests pact-python
 
       - name: Start services with Docker Compose
-        run: docker-compose up --build -d
+        run: docker compose up --build -d
       
       - name: Wait for services to be healthy
         run: sleep 10
