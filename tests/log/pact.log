@@ -1,0 +1,7 @@
+# Logfile created on 2025-08-29 19:30:43 +0530 by logger.rb/v1.5.3
+I, [2025-08-29T19:30:49.000799 #13572]  INFO -- : Running example 'Verifying a pact between OrderService and ProductService Given a product with ID 102 exists a request for a single product with GET /products/102 returns a response which has status code 200'
+I, [2025-08-29T19:30:49.001737 #13572]  INFO -- : Sending GET request to path: "/products/102" with headers: {"X_PACT_PROVIDER_STATES"=>[{"name"=>"a product with ID 102 exists"}]}, see debug logs for body
+D, [2025-08-29T19:30:49.002173 #13572] DEBUG -- : body :
+I, [2025-08-29T19:30:49.254197 #13572]  INFO -- : Received response with status: 200, headers: {"Server"=>"gunicorn", "Date"=>"Fri, 29 Aug 2025 14:00:49 GMT", "Connection"=>"close", "Content-Type"=>"application/json", "Content-Length"=>"56"}, see debug logs for body
+D, [2025-08-29T19:30:49.255072 #13572] DEBUG -- : body: {"name":"Mechanical Keyboard","price":79.99,"stock":75}
+

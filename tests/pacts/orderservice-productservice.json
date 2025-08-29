@@ -1,0 +1,44 @@
+{
+  "consumer": {
+    "name": "OrderService"
+  },
+  "provider": {
+    "name": "ProductService"
+  },
+  "interactions": [
+    {
+      "description": "a request for a single product",
+      "providerState": "a product with ID 102 exists",
+      "request": {
+        "method": "GET",
+        "path": "/products/102"
+      },
+      "response": {
+        "status": 200,
+        "headers": {
+        },
+        "body": {
+          "name": "Mechanical Keyboard",
+          "price": 79.99,
+          "stock": 75
+        },
+        "matchingRules": {
+          "$.body.name": {
+            "match": "type"
+          },
+          "$.body.price": {
+            "match": "type"
+          },
+          "$.body.stock": {
+            "match": "type"
+          }
+        }
+      }
+    }
+  ],
+  "metadata": {
+    "pactSpecification": {
+      "version": "2.0.0"
+    }
+  }
+}

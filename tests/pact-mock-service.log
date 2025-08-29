@@ -1,0 +1,66 @@
+I, [2025-08-29T19:27:06.956132 #4228]  INFO -- : Cleared interactions
+I, [2025-08-29T19:27:06.987189 #4228]  INFO -- : Registered expected interaction GET /products/102
+D, [2025-08-29T19:27:06.989169 #4228] DEBUG -- : {
+  "description": "a request for a single product",
+  "providerState": "a product with ID 102 exists",
+  "request": {
+    "method": "GET",
+    "path": "/products/102"
+  },
+  "response": {
+    "status": 200,
+    "headers": {
+    },
+    "body": {
+      "name": {
+        "json_class": "Pact::SomethingLike",
+        "contents": "Mechanical Keyboard"
+      },
+      "price": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 79.99
+      },
+      "stock": {
+        "json_class": "Pact::SomethingLike",
+        "contents": 75
+      }
+    }
+  },
+  "metadata": null
+}
+I, [2025-08-29T19:27:07.000396 #4228]  INFO -- : Received request GET /products/102
+D, [2025-08-29T19:27:07.000908 #4228] DEBUG -- : {
+  "path": "/products/102",
+  "query": "",
+  "method": "get",
+  "headers": {
+    "Host": "localhost:1234",
+    "User-Agent": "python-requests/2.32.5",
+    "Accept-Encoding": "gzip, deflate",
+    "Accept": "*/*",
+    "Connection": "keep-alive",
+    "Version": "HTTP/1.1"
+  }
+}
+I, [2025-08-29T19:27:07.001367 #4228]  INFO -- : Found matching response for GET /products/102
+D, [2025-08-29T19:27:07.001606 #4228] DEBUG -- : {
+  "status": 200,
+  "headers": {
+  },
+  "body": {
+    "name": {
+      "json_class": "Pact::SomethingLike",
+      "contents": "Mechanical Keyboard"
+    },
+    "price": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 79.99
+    },
+    "stock": {
+      "json_class": "Pact::SomethingLike",
+      "contents": 75
+    }
+  }
+}
+I, [2025-08-29T19:27:07.015731 #4228]  INFO -- : Verifying - interactions matched
+I, [2025-08-29T19:27:07.032445 #4228]  INFO -- : Writing pact for ProductService to ./pacts/orderservice-productservice.json

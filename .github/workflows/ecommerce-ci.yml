@@ -1,0 +1,40 @@
+name: E-commerce CI Pipeline
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-and-verify:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out code
+        uses: actions/checkout@v4
+
+      - name: Set up Python for test runner
+        uses: actions/setup-python@v5
+        with:
+          python-version: 3.9
+
+      - name: Install test dependencies
+        run: pip install pytest requests pact-python
+
+      - name: Start services with Docker Compose
+        run: docker-compose up --build -d
+      
+      - name: Wait for services to be healthy
+        run: sleep 10
+
+      - name: Run API and E2E tests
+        run: pytest tests/test_api.py
+
+      - name: Run Consumer contract test
+        run: pytest tests/test_contract.py
+
+      - name: Run Provider contract verification
+        run: |
+          pact-verifier --provider-base-url=http://localhost:5001 \
+                        --pact-url=./tests/pacts/order_service-product_service.json
