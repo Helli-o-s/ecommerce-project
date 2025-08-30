@@ -27,11 +27,16 @@ jobs:
         run: docker compose up --build -d
 
       - name: Wait for services to be healthy
-        # In a real-world scenario, you might use a more sophisticated health check.
-        # For our project, a generous sleep is reliable and simple.
         run: sleep 20
 
-      - name: Run API and E2E tests
+      # NEW STEP: Create the database tables inside the running containers
+      - name: Initialize Databases
+        run: |
+          docker compose exec product-service flask init-db
+          docker compose exec order-service flask init-db
+          docker compose exec user-service flask init-db
+
+      - name: Run API tests
         working-directory: ./tests
         run: pytest test_api.py
 
