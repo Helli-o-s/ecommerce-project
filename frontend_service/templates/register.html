@@ -1,0 +1,26 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .form-container { max-width: 400px; margin: 2rem auto; padding: 2rem; background: #fff; border-radius: 8px; border: 1px solid #dee2e6; }
+    .form-group { margin-bottom: 1rem; }
+    .form-group label { display: block; margin-bottom: 0.5rem; }
+    .form-group input { width: 100%; padding: 0.5rem; border: 1px solid #ced4da; border-radius: 5px; box-sizing: border-box; }
+    .form-container button { width: 100%; }
+</style>
+
+<div class="form-container">
+    <h2>Create an Account</h2>
+    <form method="post">
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
+        </div>
+        <div class="form-group">
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" minlength="8" required>
+        </div>
+        <button type="submit" class="button">Register</button>
+    </form>
+</div>
+{% endblock %}

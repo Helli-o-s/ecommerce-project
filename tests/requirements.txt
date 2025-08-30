@@ -1,0 +1,4 @@
+pytest
+requests
+# We are locking pact-python to a known-good major version (v2)
+pact-python>=2.0.0,<3.0.0

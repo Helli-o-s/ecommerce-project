@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 2rem; }
+    .product-card { background: #fff; border: 1px solid #dee2e6; border-radius: 8px; padding: 1.5rem; text-align: center; }
+    .product-card h3 { margin-top: 0; }
+    .product-card .price { color: #28a745; font-size: 1.25rem; font-weight: bold; margin: 0.5rem 0; }
+    .product-card .stock { color: #6c757d; font-size: 0.9rem; }
+    .product-card form { margin-top: 1rem; }
+    .product-card input[type="number"] { width: 60px; text-align: center; margin-right: 0.5rem; }
+</style>
+
+<h1>Our Products</h1>
+<div class="product-grid">
+    {% for product in products %}
+        <div class="product-card">
+            <h3>{{ product.name }}</h3>
+            <p class="price">${{ "%.2f"|format(product.price) }}</p>
+            <p class="stock">{{ product.stock }} in stock</p>
+            <form action="{{ url_for('create_order', product_id=product.id) }}" method="post">
+                <input type="number" name="quantity" value="1" min="1" max="{{ product.stock }}">
+                <button type="submit" class="button">Order</button>
+            </form>
+        </div>
+    {% else %}
+        <p>No products found or the Product Service is unavailable.</p>
+    {% endfor %}
+</div>
+{% endblock %}

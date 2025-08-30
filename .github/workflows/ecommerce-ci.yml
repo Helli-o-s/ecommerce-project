@@ -1,4 +1,4 @@
-name: E-commerce CI Pipeline
+name: E-commerce CI/CD Pipeline
 
 on:
   push:
@@ -20,21 +20,27 @@ jobs:
           python-version: 3.9
 
       - name: Install test dependencies
-        run: pip install pytest requests pact-python
+        working-directory: ./tests
+        run: pip install -r requirements.txt
 
-      - name: Start services with Docker Compose
+      - name: Start all services with Docker Compose
         run: docker compose up --build -d
-      
+
       - name: Wait for services to be healthy
-        run: sleep 10
+        # In a real-world scenario, you might use a more sophisticated health check.
+        # For our project, a generous sleep is reliable and simple.
+        run: sleep 20
 
       - name: Run API and E2E tests
-        run: pytest tests/test_api.py
+        working-directory: ./tests
+        run: pytest test_api.py
 
       - name: Run Consumer contract test
-        run: pytest tests/test_contract.py
+        working-directory: ./tests
+        run: pytest test_contract.py
 
       - name: Run Provider contract verification
+        working-directory: ./tests
         run: |
           pact-verifier --provider-base-url=http://localhost:5001 \
-                        --pact-url=./tests/pacts/orderservice-productservice.json
+                        --pact-url=./pacts/orderservice-productservice.json

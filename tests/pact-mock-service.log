@@ -1,6 +1,6 @@
-I, [2025-08-29T19:27:06.956132 #4228]  INFO -- : Cleared interactions
-I, [2025-08-29T19:27:06.987189 #4228]  INFO -- : Registered expected interaction GET /products/102
-D, [2025-08-29T19:27:06.989169 #4228] DEBUG -- : {
+I, [2025-08-30T10:23:18.952458 #15508]  INFO -- : Cleared interactions
+I, [2025-08-30T10:23:18.981964 #15508]  INFO -- : Registered expected interaction GET /products/102
+D, [2025-08-30T10:23:18.986764 #15508] DEBUG -- : {
   "description": "a request for a single product",
   "providerState": "a product with ID 102 exists",
   "request": {
@@ -28,8 +28,8 @@ D, [2025-08-29T19:27:06.989169 #4228] DEBUG -- : {
   },
   "metadata": null
 }
-I, [2025-08-29T19:27:07.000396 #4228]  INFO -- : Received request GET /products/102
-D, [2025-08-29T19:27:07.000908 #4228] DEBUG -- : {
+I, [2025-08-30T10:23:19.010544 #15508]  INFO -- : Received request GET /products/102
+D, [2025-08-30T10:23:19.011416 #15508] DEBUG -- : {
   "path": "/products/102",
   "query": "",
   "method": "get",
@@ -42,8 +42,8 @@ D, [2025-08-29T19:27:07.000908 #4228] DEBUG -- : {
     "Version": "HTTP/1.1"
   }
 }
-I, [2025-08-29T19:27:07.001367 #4228]  INFO -- : Found matching response for GET /products/102
-D, [2025-08-29T19:27:07.001606 #4228] DEBUG -- : {
+I, [2025-08-30T10:23:19.011858 #15508]  INFO -- : Found matching response for GET /products/102
+D, [2025-08-30T10:23:19.012195 #15508] DEBUG -- : {
   "status": 200,
   "headers": {
   },
@@ -62,5 +62,5 @@ D, [2025-08-29T19:27:07.001606 #4228] DEBUG -- : {
     }
   }
 }
-I, [2025-08-29T19:27:07.015731 #4228]  INFO -- : Verifying - interactions matched
-I, [2025-08-29T19:27:07.032445 #4228]  INFO -- : Writing pact for ProductService to ./pacts/orderservice-productservice.json
+I, [2025-08-30T10:23:19.024986 #15508]  INFO -- : Verifying - interactions matched
+I, [2025-08-30T10:23:19.040045 #15508]  INFO -- : Writing pact for ProductService to ./pacts/orderservice-productservice.json

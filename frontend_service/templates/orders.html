@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<style>
+    .orders-table { width: 100%; border-collapse: collapse; margin-top: 2rem; background: #fff; border-radius: 8px; overflow: hidden; }
+    .orders-table th, .orders-table td { padding: 1rem; text-align: left; border-bottom: 1px solid #dee2e6; }
+    .orders-table th { background-color: #f8f9fa; }
+    .orders-table .actions { text-align: right; }
+    .btn-cancel { background-color: #dc3545; color: white; border: none; padding: 0.5rem 1rem; border-radius: 5px; cursor: pointer; }
+</style>
+
+<h1>My Order History</h1>
+{% if orders %}
+    <table class="orders-table">
+        <thead>
+            <tr>
+                <th>Order ID</th>
+                <th>Product Name</th>
+                <th>Quantity</th>
+                <th>Total Price</th>
+                <th class="actions">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+            <tr>
+                <td>#{{ order.id }}</td>
+                <td>{{ order.product_name }}</td>
+                <td>{{ order.quantity }}</td>
+                <td>${{ "%.2f"|format(order.total_price) }}</td>
+                <td class="actions">
+                    <form action="{{ url_for('cancel_order', order_id=order.id) }}" method="post" onsubmit="return confirm('Are you sure you want to cancel this order?');">
+                        <button type="submit" class="btn-cancel">Cancel Order</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p>You have not placed any orders yet.</p>
+{% endif %}
+{% endblock %}

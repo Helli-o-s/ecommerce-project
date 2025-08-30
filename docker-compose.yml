@@ -1,15 +1,47 @@
-version: '3.8'
+# docker-compose.yml
 
 services:
-  # Define the Product Service
+  db:
+    image: postgres:13-alpine
+    environment:
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+      - POSTGRES_DB=ecom_db
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - ecommerce-network
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U user -d ecom_db"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  user-service:
+    build: ./user_service
+    ports:
+      - "5003:5003"
+    networks:
+      - ecommerce-network
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/ecom_db
+      - SECRET_KEY=my-super-secret-for-jwt
+
   product-service:
     build: ./product_service
     ports:
       - "5001:5001"
     networks:
       - ecommerce-network
+    depends_on:
+      db: { condition: service_healthy }
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/ecom_db
 
-  # Define the Order Service
   order-service:
     build: ./order_service
     ports:
@@ -17,7 +49,29 @@ services:
     networks:
       - ecommerce-network
     depends_on:
+      db: { condition: service_healthy }
+    environment:
+      - DATABASE_URL=postgresql://user:password@db:5432/ecom_db
+      - SECRET_KEY=my-super-secret-for-jwt
+
+  # NEW: Add the Frontend Service
+  frontend-service:
+    build: ./frontend_service
+    ports:
+      - "5000:5000"
+    networks:
+      - ecommerce-network
+    depends_on:
       - product-service
+      - order-service
+      - user-service
+    environment:
+      - USER_SERVICE_URL=http://user-service:5003
+      - PRODUCT_SERVICE_URL=http://product-service:5001
+      - ORDER_SERVICE_URL=http://order-service:5002
+
+volumes:
+  db-data:
 
 networks:
   ecommerce-network:
